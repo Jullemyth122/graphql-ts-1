@@ -1,0 +1,130 @@
+// src/styles/App.scss
+
+// Global styles
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+// Navigation styling
+nav {
+    background-color: #3f51b5;
+    padding: 1rem;
+
+    ul {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+
+        li {
+            margin: 0 1rem;
+            list-style: none;
+
+            a {
+                list-style: none;
+                text-decoration: none;
+                color: #fff;
+                font-weight: bold;
+
+                &:hover {
+                    color: #c5cae9;
+                }
+            }
+        }
+    }
+}
+
+// Accounts list page styling
+.accounts-list {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    li {
+        list-style: none;
+        padding: 0.75rem;
+        border-bottom: 1px solid #ddd;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+    
+    ul {
+        padding: 0;
+    }
+}
+
+// Create account page styling
+.create-account {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #3f51b5;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        .form-group {
+            margin-bottom: 1rem;
+
+            label {
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+
+            input {
+                width: 100%;
+                padding: 0.5rem;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+
+                &:focus {
+                    border-color: #3f51b5;
+                    outline: none;
+                }
+            }
+        }
+
+        button {
+            padding: 0.75rem;
+            background-color: #3f51b5;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #303f9f;
+            }
+        }
+    }
+
+    .error {
+        margin-top: 1rem;
+        color: red;
+        text-align: center;
+    }
+}
