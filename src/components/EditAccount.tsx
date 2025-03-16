@@ -72,37 +72,37 @@ const EditAccount: React.FC = () => {
     if (error) return <p>Error fetching account: {error.message}</p>;
 
     return (
-        <div>
-        <h2>Edit Account</h2>
+        <div className='edit-account'>
+            <h2>Edit Account</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                <label>Username:</label>
-                <input 
-                    type="text" 
-                    name="username" 
-                    value={formState.username} 
-                    onChange={handleChange} 
-                    required 
-                />
+                <div className='form-group'>
+                    <label>Username:</label>
+                    <input 
+                        type="text" 
+                        name="username" 
+                        value={formState.username} 
+                        onChange={handleChange} 
+                        required 
+                    />
                 </div>
-                <div>
-                <label>Email:</label>
-                <input 
-                    type="email" 
-                    name="email" 
-                    value={formState.email} 
-                    onChange={handleChange} 
-                    required 
-                />
+                <div className='form-group'>
+                    <label>Email:</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        value={formState.email} 
+                        onChange={handleChange} 
+                        required 
+                    />
                 </div>
-                <div>
-                <label>Password (leave blank if unchanged):</label>
-                <input 
-                    type="password" 
-                    name="password" 
-                    value={formState.password} 
-                    onChange={handleChange} 
-                />
+                <div className='form-group'>
+                    <label>Password (leave blank if unchanged):</label>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        value={formState.password} 
+                        onChange={handleChange} 
+                    />
                 </div>
                 <button type="submit">Update Account</button>
             </form>
