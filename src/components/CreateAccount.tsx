@@ -44,7 +44,7 @@ const CreateAccount: React.FC = () => {
         <div className='create-account'>
             <h2>Create Account</h2>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className='form-group'>
                     <label>Username:</label>
                     <input
                         type="text"
@@ -54,7 +54,7 @@ const CreateAccount: React.FC = () => {
                         required
                     />
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>Email:</label>
                     <input
                         type="email"
@@ -64,7 +64,7 @@ const CreateAccount: React.FC = () => {
                         required
                     />
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>Password:</label>
                     <input
                         type="password"
