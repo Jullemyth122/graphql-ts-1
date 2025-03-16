@@ -61,16 +61,18 @@ const AccountsList: React.FC = () => {
             <ul style={{ display:'grid', gap:'5px' }}>
                 {data?.accounts.map((account) => (
                 <li key={account.id} 
-                    style={{ background: 'linear-gradient(to right ,#ffffff ,#ffb861)', padding:'5px' }}
+                    // style={{ background: 'linear-gradient(to right ,#ffffff ,#ffb861)', padding:'5px' }}
                 >
 
                     <span onClick={() => handleSelectedAccount(account.id)}>
                     {account.username} ({account.email})
                     </span>
-                    <Link to={`/accounts/${account.id}/edit`}>
-                        <button style={{ marginRight: '5px' }}>Edit</button>
-                    </Link>
-                    <button onClick={() => handleDeleteAccount(account.id)}>Delete</button>
+                    <div className="btn">
+                        <Link to={`/accounts/${account.id}/edit`}>
+                            <button>Edit</button>
+                        </Link>
+                        <button onClick={() => handleDeleteAccount(account.id)}>Delete</button>
+                    </div>
 
                 </li>
                 ))}
