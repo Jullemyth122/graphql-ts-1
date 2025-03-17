@@ -19,3 +19,13 @@ export const GET_ACCOUNT = gql`
         }
     }
 `;
+
+export const GET_COMMENTS = gql`
+  query GetComments($accountId: ID!) {
+    comments(accountId: $accountId) {
+      id
+      content
+      createdAt
+    }
+  }
+`;
