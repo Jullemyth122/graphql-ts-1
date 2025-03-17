@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { GET_ACCOUNT, GET_ACCOUNTS, GET_COMMENTS } from '../types/queries';
-import { CREATE_COMMENT, DELETE_ACCOUNT } from '../types/mutations';
+import { CREATE_COMMENT, DELETE_ACCOUNT, DELETE_COMMENT, UPDATE_COMMENT } from '../types/mutations';
 import { Account, Comment } from '../types/types';
 import { Link } from 'react-router-dom';
 
@@ -24,10 +24,15 @@ const AccountsList: React.FC = () => {
             context: { clientName: 'comments' },
         });
 
-    const [createComment] = useMutation(CREATE_COMMENT, {
-        context: { clientName: 'comments' },
-    });
+    // Mutation for creating a comment
+    const [createComment] = useMutation(CREATE_COMMENT, { context: { clientName: 'comments' } });
+    // Mutation for updating a comment
+    const [updateComment] = useMutation(UPDATE_COMMENT, { context: { clientName: 'comments' } });
+    // Mutation for deleting a comment
+    const [deleteComment] = useMutation(DELETE_COMMENT, { context: { clientName: 'comments' } });
+    
     const [newCommentContent, setNewCommentContent] = useState<string>('');
+    const [editCommentContent, setEditCommentContent] = useState<{ [key: string]: string }>({});
 
     const handleSelectAccount = (accountId: string) => {
         if (selectedAccountId === accountId) {
@@ -66,6 +71,33 @@ const AccountsList: React.FC = () => {
             console.error('Error creating comment:', err);
         }
     };
+
+    const handleUpdateComment = async (commentId: string) => {
+        try {
+            const newContent = editCommentContent[commentId];
+            const response = await updateComment({
+                variables: { input: { id: commentId, content: newContent } },
+            });
+            if (response.data.updateComment.success) {
+                // Optionally update the local state or refetch comments to reflect changes.
+                refetchComments();
+            }
+        } catch (error) {
+            console.error('Error updating comment:', error);
+        }
+    };
+
+    const handleDeleteComment = async (commentId: string) => {
+        try {
+            const response = await deleteComment({ variables: { id: commentId } });
+            if (response.data.deleteComment.success) {
+                refetchComments();
+            }
+        } catch (err) {
+            console.error('Error deleting comment:', err);
+        }
+    };
+
 
     if (accountsLoading) return <p>Loading accounts...</p>;
     if (accountsError) return <p>Error: {accountsError.message}</p>;
@@ -107,10 +139,33 @@ const AccountsList: React.FC = () => {
 
                                         return(
                                             <li key={comment.id} className="comment-item">
-                                                <p>{comment.content}</p>
+                                                <input 
+                                                    type="text"
+                                                    name="content-comment"
+                                                    value={editCommentContent[comment.id] !== undefined 
+                                                            ? editCommentContent[comment.id]
+                                                            : comment.content}
+                                                    onChange={(e) => 
+                                                    setEditCommentContent({
+                                                        ...editCommentContent,
+                                                        [comment.id]: e.target.value,
+                                                    })
+                                                    }
+                                                    onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        handleUpdateComment(comment.id);
+                                                    }
+                                                    }}
+                                                />
                                                 <small>
                                                     Posted on: {commentDate.toLocaleString('en-US', { timeZone: 'UTC' })}
                                                 </small>
+                                                <button 
+                                                    className="btn-delete-comment" 
+                                                    onClick={() => handleDeleteComment(comment.id)}
+                                                >
+                                                    Delete Comment
+                                                </button>
                                             </li>
                                         )
                                     })}

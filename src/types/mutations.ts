@@ -56,3 +56,29 @@ export const CREATE_COMMENT = gql`
         }
     }
 `;
+
+export const DELETE_COMMENT = gql`
+    mutation DeleteComment($id: ID!) {
+        deleteComment(id: $id) {
+            success
+            message
+            comment {
+                id
+            }
+        }
+    }
+`
+
+
+export const UPDATE_COMMENT = gql`
+    mutation UpdateComment($input: UpdateCommentInput!) {
+        updateComment(input: $input) {
+            success
+            message   
+            comment {
+                id
+                content
+            }
+        }
+    }
+`
